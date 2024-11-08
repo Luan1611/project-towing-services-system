@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Webservice</title>
+</head>
+<body>
+    <h1>Webservice</h1>
+
+    <h2> Cliente - Dados Cadastrais (clientRegistrationDataController.php) (http://localhost/project-towing-services-system-backend/client/)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>Exemplo</th>
+                <th>Descrição</th>
+                <th>Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/client-registration-data/11111111111</td>
+                <td>Recupera os dados cadastrais do cliente</td>
+                <td>
+                    {
+                        "cpf": "11111111111",
+                        "nome": "Luan Marqueti",
+                        "telefone": "16999999999",
+                        "email": "luan@gmail.com"
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/client-registration-data/</td>
+                <td>Cadastra um novo cliente. Requer cpf, nome, telefone, email e senha.</td>
+                <td>{"msg": "Cliente criado com sucesso!"}</td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>/client-registration-data/45345987274</td>
+                <td>Atualiza os dados cadastrais do cliente. Requer o CPF, nome e telefone.</td>
+                <td>{
+                    "msg": "Dados cadastrais do usuário editados com sucesso"
+                }</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2> Cliente - Agendamentos (aqueleQueNaoPodeSerNomeado.php) (http://localhost/project-towing-services-system-backend/client-schedulings-data/)</h2>
+
+    <p style="color:red"> Olá Prof., tentamos dar o nome correto para o arquivo .php, mas por alguma razão, não foi reconhecido (e outros nomes também não). Planejávamos dar o nome "clientSchedulingsDataController.php".</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>Exemplo</th>
+                <th>Descrição</th>
+                <th>Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>POST</td>
+                <td>/client-schedulings-data/</td>
+                <td>Cria um novo agendamento. Requer o CPF, os ids dos serviços, a data de solicitação e a data de realização.</td>
+                <td>{
+                    "cpf": "11111111111",
+                    "services_ids": [1, 2],
+                    "data_solicitacao_servico": "2024-06-10",
+                    "data_realizacao_servico": "2024-06-15"
+                }</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/client-schedulings-data/</td>
+                <td>Deleta um agendamento do cliente (soft delete). Requer o id do agendamento.</td>
+                <td>{"msg": "Agendamento deletado com sucesso!"}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2> Serviço (servicesController.php) (http://localhost/project-towing-services-system-backend/service/)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>Exemplo</th>
+                <th>Descrição</th>
+                <th>Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/service</td>
+                <td>Recupera a lista de serviços oferecidos pelo prestador de serviço.</td>
+                <td>[
+                {
+                    "id": 8,
+                    "codigo": "Z1",
+                    "tipo": "Guincho especial",
+                    "preco": "1250.40",
+                    "active": 1
+                },
+                {
+                    "id": 9,
+                    "codigo": "Z2",
+                    "tipo": "Guincho especial",
+                    "preco": "1250.40",
+                    "active": 1
+                }
+            ]</td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/service</td>
+                <td>Cadastra um novo serviço. Requer o código do serviço, o tipo e o preço.</td>
+                <td>{
+                    "id": 9,
+                    "codigo": "Z2",
+                    "tipo": "Guincho especial",
+                    "preco": "1250.40",
+                    "created_at": "2024-10-21 16:46:41",
+                    "updated_at": "2024-10-21 16:46:41",
+                    "active": 1
+                }</td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/service/S1</td>
+                <td>Deleta um serviço. Requer o código do serviço.</td>
+                <td>{"msg": "Serviço deletado com sucesso!"}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2> Agendamentos (overallSchedulingsController.php) (http://localhost/project-towing-services-system-backend/schedulings/)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>Exemplo</th>
+                <th>Descrição</th>
+                <th>Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/schedulings</td>
+                <td>Recupera a lista de agendamentos feitos por clientes. Os agendamentos estão organizados por datas.</td>
+                <td>[ {
+                    "nome": "Luan marqueti",
+                    "tipo": "s",
+                    "data_realizacao_servico": "2024-06-15"
+                },
+                {
+                    "nome": "luana giovana monteiro",
+                    "tipo": "lavagem de carro",
+                    "data_realizacao_servico": "2024-01-31"
+                }]</td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/schedulings/43265409481</td>
+                <td>Recupera a lista de agendamentos de um cliente.</td>
+                <td>[ {
+                    "nome": "Luan Marqueti",
+                    "tipo": "guincho intramunicipal",
+                    "data_realizacao_servico": "2024-06-15"
+                },
+                {
+                    "nome": "Luan Marqueti",
+                    "tipo": "guincho intermunicipal",
+                    "data_realizacao_servico": "2024-05-31"
+                }]</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2> Prestador de Serviço (contractorController.php) (http://localhost/project-towing-services-system-backend/contractor/)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Método</th>
+                <th>Exemplo</th>
+                <th>Descrição</th>
+                <th>Resultado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/contractor</td>
+                <td>Recupera a lista de agendamentos feitos por clientes. Os agendamentos estão organizados por datas.</td>
+                <td>[{
+                    "nome": "Luan marqueti",
+                    "cpf": "11111111111",
+                    "telefone": "16888888888",
+                    "tipo": "s",
+                    "data_realizacao_servico": "2024-06-15"
+                },
+                {
+                    "nome": "luana giovana monteiro",
+                    "cpf": "33333333333",
+                    "telefone": "1234567809",
+                    "tipo": "lavagem de carro",
+                    "data_realizacao_servico": "2024-01-31"
+                }]</td>
+            </tr>
+                <td>DELETE</td>
+                <td>/contractor/2024-03-18</td>
+                <td>Deleta (soft delete) todos os agendamentos feitos por clientes em determinada data.</td>
+                <td>{
+                    "msg": "Agendamentos de clientes deletados com sucesso!"
+                }</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

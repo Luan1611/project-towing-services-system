@@ -1,0 +1,28 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Este trecho abaixo configura o servidor para aceitar requisicoes
+# tipo /exemplo/10 ou /exemplo ou /exemplo?chave=valor, etc...
+# Fazer isso para cada arquivo de rota disponível no servidor.
+
+RewriteRule ^service/([0-9a-zSA-Z]+) serviceController.php?codigo=$1 [L,QSA]
+RewriteRule ^service serviceController.php [L,QSA]
+
+#yet pending
+RewriteRule ^authentication/([0-9]+) authenticationController.php?id=$1 [L,QSA]
+RewriteRule ^authentication authenticationController.php [L,QSA]
+
+RewriteRule ^contractor/(\d{4}-\d{2}-\d{2}) contractorController.php?date=$1 [L,QSA]
+RewriteRule ^contractor contractorController.php [L,QSA]
+
+RewriteRule ^schedulings/([0-9]+) overallSchedulingsController.php?cpf=$1 [L,QSA]
+RewriteRule ^schedulings overallSchedulingsController.php [L,QSA]
+
+RewriteRule ^client-schedulings-data/([0-9]+) aqueleQueNaoPodeSerNomeado.php?id=$1 [L,QSA]
+RewriteRule ^client-schedulings-data aqueleQueNaoPodeSerNomeado.php [L,QSA]
+
+RewriteRule ^client-registration-data/([0-9]+) clientRegistrationDataController.php?cpf=$1 [L,QSA]
+RewriteRule ^client-registration-data clientRegistrationDataController.php [L,QSA]
