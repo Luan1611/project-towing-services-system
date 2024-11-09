@@ -1,5 +1,6 @@
 const userCardDiv = document.querySelector('.user-card')
 const form = document.querySelector('[data-form="user"]')
+const 
 
 const getUserRegistrationData = async () => {
 
@@ -12,7 +13,9 @@ const getUserRegistrationData = async () => {
     try {
         e.preventDefault()
 
-        const cpf = CPFParagraph.textContent
+        //De onde virá o CPF?
+        const cpf = localStorage.getItem('cpf')
+
         const response = await fetch(`http://localhost/project-towing-services-system-backend/client/client-registration-data/${cpf}`)
         
         if (!response.ok) {
@@ -27,15 +30,16 @@ const getUserRegistrationData = async () => {
         //questão: de onde virá o email
 
         const cpfParagraph = document.createElement('p')
-        // cpfParagraph.setAttribute('data-cpf', 'cpf')
+        cpfParagraph.setAttribute('data-cpf', 'cpf')
 
-        const nameParagraph = document.querySelector('p')
-        // nameParagraph.setAttribute('data-name', 'nome')
+        const nameParagraph = document.createElement('p')
+        nameParagraph.setAttribute('data-name', 'nome')
 
-        const phoneParagraph = document.querySelector('p')
-        // phoneParagraph.setAttribute('data-phone', 'telefone')
+        const phoneParagraph = document.createElement('p')
+        phoneParagraph.setAttribute('data-phone', 'telefone')
 
-        const emailParagraph = document.querySelector('p')
+        const emailParagraph = document.createElement('p')
+        phoneParagraph.setAttribute('data-email', 'email')
 
         cpfParagraph.textContent = userRegistrationData.cpf
         nameParagraph.textContent = userRegistrationData.nome
@@ -61,22 +65,30 @@ const fetchPutRequest = async e => {
         let options = {
             method: "PUT",
             body: JSON.stringify({
-                cpf: CPFParagraph.textContent,
                 nome,
                 telefone
             })
         }
 
-        const response = await fetch(`http://localhost/project-towing-services-system-backend/client/client-registration-data/${}`, options)
+        const cpf = localStorage.getItem('cpf')
+
+        const response = await fetch(`http://localhost/project-towing-services-system-backend/client/client-registration-data/${cpf}`, options)
         
         if (!response.ok) {
-            throw new Error('Não foi possível concluir a requisição com sucesso.')
+            const errorObj = await response.json()
+            console.log(errorObj)
+            throw new Error(errorObj.msg)
         }
 
         const newUserData = await response.json()
 
+        alert(newUserData['msg'])
+
         //TODO: atualizar card com novos dados cadastrais
-    
+        const nameParagraph = document.querySelector(['data-name="nome"'])
+        const phoneParagraph = document.querySelector(['data-phone="telefone"'])
+        nameParagraph.textContent = nome
+        phoneParagraph.textContent = telefone
 
     } catch(err) {
         console.log(err.message)
