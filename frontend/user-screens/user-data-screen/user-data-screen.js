@@ -1,6 +1,5 @@
 const userCardDiv = document.querySelector('.user-card')
 const form = document.querySelector('[data-form="user"]')
-const 
 
 const getUserRegistrationData = async () => {
 
