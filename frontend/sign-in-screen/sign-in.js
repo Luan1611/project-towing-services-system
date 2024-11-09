@@ -1,13 +1,27 @@
 const form = document.querySelector('form')
 
-form.addEventListener('submit', event => {
+form.addEventListener('submit', async event => {
     event.preventDefault()
 
-    const emailValue = event.target.email.value
-    const passwordValue = event.target.password.value
+    const userEmail = event.target.email.value
+    const userPassword = event.target.password.value
 
-    const emailIsValid = emailValue === localStorage.getItem('email')
-    const passwordIsValid = passwordValue === localStorage.getItem('password')
+    try{
+        const response = await fetch(`http://localhost/project-towing-services-system-backend/client/client-registration-data/`)
+        
+        if (!response.ok) {
+            throw new Error('Não foi possível concluir a requisição com sucesso.')
+        }
+
+        const userParams = await response.json()
+    
+    }catch(err){
+        console.log(err)
+        alert(err)
+    }
+
+    const emailIsValid = emailValue === userParams.email
+    const passwordIsValid = passwordValue === userParams.password
 
     const isAdmin = emailValue === 'admin' && passwordValue === 'admin'
 

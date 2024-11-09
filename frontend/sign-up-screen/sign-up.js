@@ -1,6 +1,5 @@
 
 const form = document.querySelector('form');
-const phoneAddButton = document.querySelector('#phone-add-bt')
 
 form.addEventListener('submit', async event =>  {
 
@@ -31,8 +30,6 @@ form.addEventListener('submit', async event =>  {
             throw new Error('Não foi possível concluir a requisição com sucesso.')
         }
     
-        const newUserData = await response.json()
-
     }catch(err){
         console.log(err)
         alert(err)
