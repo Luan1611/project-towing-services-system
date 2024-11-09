@@ -49,13 +49,10 @@ const getUserRegistrationData = async () => {
     } catch(err) {
         console.log(err.message)
     }
-    
-
 }
 
 
 const fetchPutRequest = async e => {
-
     try {
         e.preventDefault()
 
@@ -93,7 +90,6 @@ const fetchPutRequest = async e => {
     } catch(err) {
         console.log(err.message)
     }
-    
 }
 
 getUserRegistrationData()
