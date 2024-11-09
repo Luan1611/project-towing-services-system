@@ -66,17 +66,3 @@ p{
     font-size: 15px;
     display: inline-block;
 }
-
-select{
-    padding: 5px 10px;
-    margin: auto;
-    margin-bottom: 8px;
-    width: 100%;
-    border: none;
-    outline:none;
-    color: black;
-    height: 25px;
-    border-radius: 5px;
-    text-align: center;
-    font-family: monospace;
-}
