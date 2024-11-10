@@ -54,11 +54,18 @@ if(method("POST")) {
     }
 
     try {
-        validateParameters($data, ["email", "senha"], 2)
-        validateEmail($data["email"])
-        validatePassword($data["senha"])
+        var_dump($data);
+        echo "estou aqui 0"; 
+        validateParameters($data, ["email", "senha"], 2);
+        echo "estou aqui 1"; 
+        validateEmail($data["email"]);
+        echo "estou aqui 2"; 
+        validatePassword($data["senha"]);
 
-        $result = Authentication.
+        echo "estou aqui";
+
+        $result = Authentication::getUserAuthenticationData($data["email"], $data["senha"]);
+        output(200, $result);
 
     } catch (Exception $e) {
         throw new Exception("Não foi possível recuperar os dados dos agendamentos", 500);

@@ -33,17 +33,24 @@ class Authentication {
     do email e senha do mesmo
     */
     //TODO: string sql
-    public static function getUserAuthenticationData($userData) {
+    public static function getUserAuthenticationData($email, $password) {
         try {
             $conexao = Conexao::getConexao();
 
             $sql = $conexao->prepare(
-            //TODO
+            "SELECT 
+                    ca.user_id AS cpf, 
+                    ca.classe_de_acesso AS accessCode
+                FROM auth ca
+                WHERE ca.email = :email AND ca.senha = :senha"
             );
+            $values['email'] = $email;
+            $values['senha'] = $senha;
+            
+            $sql->execute($values);
 
-            $sql->execute();
+            return $sql->fetch();
 
-            return $sql->fetchAll();
         } catch (Exception $e) {
             output(500, ["msg" => $e->getMessage()]);
         }

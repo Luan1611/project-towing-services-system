@@ -11,27 +11,33 @@ form.addEventListener('submit', async event =>  {
     const userEmail = event.target.email.value
     const userPassword = event.target.password.value
 
+    console.log(userName, userPhone, userEmail, userPassword, userCPF)
+
     try{
 
         let options = {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                cpf: userCPF.innerText,
-                nome: userName.innerText,
-                telefone: userPhone.innerText,
-                email:userEmail.innerText,
-                senha:userPassword.innerText
+                cpf: userCPF,
+                nome: userName,
+                telefone: userPhone,
+                email:userEmail,
+                senha:userPassword
             })
         }
     
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/client/client-registration-data/`, options)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/clientRegistrationDataController.php`, options)
         
-        console.log(response)
+        const dataObj = await response.json()
 
         if (!response.ok) {
-            throw new Error('Não foi possível concluir a requisição com sucesso.')
+            throw new Error(dataObj.msg)
         }
+
+        alert(dataObj.msg)
+
+        window.location = '../sign-in-screen/sign-in.html'
     
     }catch(err){
         console.log(err)

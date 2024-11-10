@@ -10,41 +10,43 @@ form.addEventListener('submit', async event => {
 
     const email = event.target.email.value
     const senha = event.target.password.value
-    let userData = {}
     
     try{
 
         let options = {
             method: "POST",
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 email,
                 senha
             })
         }
 
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/client/client-registration-data/`, options)
-        
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/authenticationController.php`, options)
+
+        const userData = await response.json()
+
         if (!response.ok) {
-            throw new Error('Não foi possível concluir a requisição com sucesso.')
+            throw new Error(userData.msg)
         }
 
-        userData = await response.json()
-    
-    }catch(err){
-        console.log(err)
-        alert(err)
-    }
+        localStorage.setItem(userData.cpf)
 
-    if (userData.accessCode == ADMINISTRATOR_ACCESS) {
-        window.location = '../admin-screens/main-screen/main-screen.html'
-    } else {
-        if (userData.accessCode == COMMON_USER_ACCESS && userData.cpf) {
-            window.location = '../user-screens/user-data-screen/user-data-screen.html'
-        } if (userData.accessCode == NO_ACCESS){
-            alert('Seu usuário foi bloqueado, entre em contato com a administração')
+        if (userData.accessCode == ADMINISTRATOR_ACCESS) {
+            window.location = '../admin-screens/main-screen/main-screen.html'
         } else {
-            alert('Dados incorretos!')
+            if (userData.accessCode == COMMON_USER_ACCESS && userData.cpf) {
+                window.location = '../user-screens/user-data-screen/user-data-screen.html'
+            } if (userData.accessCode == NO_ACCESS) {
+                alert('Seu usuário foi bloqueado, entre em contato com a administração')
+            } else {
+                alert('Dados incorretos!')
+            }
         }
+
+    
+    } catch(err) {
+        console.log(err)
     }
 
 })
