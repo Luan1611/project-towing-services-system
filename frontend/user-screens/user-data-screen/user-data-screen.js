@@ -5,13 +5,7 @@ const getUserRegistrationData = async () => {
 
     const cpf = localStorage.getItem('cpf')
 
-    //TODO: o login é POST ou PUT?
-    //TODO: pegar o cpf a partir do login realizado (servidor terá que retornar o cpf após o login)
-    //pesqusiar
-
     try {
-        e.preventDefault()
-
         //De onde virá o CPF?
         const cpf = localStorage.getItem('cpf')
 

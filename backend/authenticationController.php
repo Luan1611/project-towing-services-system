@@ -54,7 +54,6 @@ if(method("POST")) {
     }
 
     try {
-
         validateParameters($data, ["email", "senha"], 2)
         validateEmail($data["email"])
         validatePassword($data["senha"])
