@@ -33,7 +33,7 @@ class Authentication {
     do email e senha do mesmo
     */
     //TODO: string sql
-    public static function getUserAuthenticationData($email, $password) {
+    public static function getUserAuthenticationData($email, $senha) {
         try {
             $conexao = Conexao::getConexao();
 

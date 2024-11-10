@@ -1,7 +1,7 @@
 const form = document.querySelector('form')
 
-const ADMINISTRATOR_ACCESS = 1
-const COMMON_USER_ACCESS = 2
+const ADMINISTRATOR_ACCESS = 2
+const COMMON_USER_ACCESS = 1
 const NO_ACCESS = 0
 
 
@@ -11,6 +11,7 @@ form.addEventListener('submit', async event => {
     const email = event.target.email.value
     const senha = event.target.password.value
     
+
     try{
 
         let options = {
@@ -24,20 +25,21 @@ form.addEventListener('submit', async event => {
 
         const response = await fetch(`http://localhost/project-towing-services-system/backend/authenticationController.php`, options)
 
+        console.log(response)
+
         const userData = await response.json()
 
         if (!response.ok) {
             throw new Error(userData.msg)
         }
 
-        localStorage.setItem(userData.cpf)
-
-        if (userData.accessCode == ADMINISTRATOR_ACCESS) {
+        localStorage.setItem('cpf', userData.cpf)
+        if (userData.accessCode === ADMINISTRATOR_ACCESS) {
             window.location = '../admin-screens/main-screen/main-screen.html'
         } else {
-            if (userData.accessCode == COMMON_USER_ACCESS && userData.cpf) {
+            if (userData.accessCode === COMMON_USER_ACCESS && userData.cpf) {
                 window.location = '../user-screens/user-data-screen/user-data-screen.html'
-            } if (userData.accessCode == NO_ACCESS) {
+            } if (userData.accessCode === NO_ACCESS) {
                 alert('Seu usuário foi bloqueado, entre em contato com a administração')
             } else {
                 alert('Dados incorretos!')

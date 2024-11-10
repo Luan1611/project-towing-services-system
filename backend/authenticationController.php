@@ -54,17 +54,12 @@ if(method("POST")) {
     }
 
     try {
-        var_dump($data);
-        echo "estou aqui 0"; 
         validateParameters($data, ["email", "senha"], 2);
-        echo "estou aqui 1"; 
         validateEmail($data["email"]);
-        echo "estou aqui 2"; 
         validatePassword($data["senha"]);
 
-        echo "estou aqui";
-
         $result = Authentication::getUserAuthenticationData($data["email"], $data["senha"]);
+        
         output(200, $result);
 
     } catch (Exception $e) {
