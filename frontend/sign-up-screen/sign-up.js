@@ -24,7 +24,7 @@ form.addEventListener('submit', async event =>  {
             })
         }
     
-        const response = await fetch(`http://localhost/project-towing-services-system-backend/client/client-registration-data/`, options)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/client/client-registration-data/`, options)
         
         if (!response.ok) {
             throw new Error('Não foi possível concluir a requisição com sucesso.')
