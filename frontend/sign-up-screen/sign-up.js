@@ -15,6 +15,7 @@ form.addEventListener('submit', async event =>  {
 
         let options = {
             method: "POST",
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 cpf: userCPF.innerText,
                 nome: userName.innerText,
@@ -23,11 +24,11 @@ form.addEventListener('submit', async event =>  {
                 senha:userPassword.innerText
             })
         }
-
-        console.log("alteracao")
     
         const response = await fetch(`http://localhost/project-towing-services-system/backend/client/client-registration-data/`, options)
         
+        console.log(response)
+
         if (!response.ok) {
             throw new Error('Não foi possível concluir a requisição com sucesso.')
         }

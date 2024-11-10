@@ -3,7 +3,7 @@ const cardsContainer = document.querySelector('.src-container')
 const getUserSchedulings = async () => {
     try {
         const cpf = localStorage.getItem('cpf')
-        const response = await fetch(`http://localhost/project-towing-services-system-backend/schedulings/${cpf}`)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/schedulings/${cpf}`)
         
         if (!response.ok) {
             const errorObj = await response.json()
@@ -14,13 +14,7 @@ const getUserSchedulings = async () => {
         const userSchedulings = await response.json()
 
         //TODO: preencher card com os agendamentos do cliente
-        // if (!userSchedulings.msg) {
-        //     userSchedulings.forEach( => {
-                
-        //     });
-
-        // }
-
+        console.log(userSchedulings)
 
     } catch(err) {
         console.log(err.message)
