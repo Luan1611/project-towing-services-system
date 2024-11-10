@@ -23,6 +23,8 @@ form.addEventListener('submit', async event =>  {
                 senha:userPassword.innerText
             })
         }
+
+        console.log("alteracao")
     
         const response = await fetch(`http://localhost/project-towing-services-system/backend/client/client-registration-data/`, options)
         
