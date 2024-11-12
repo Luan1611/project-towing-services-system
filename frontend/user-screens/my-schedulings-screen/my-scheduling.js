@@ -3,7 +3,7 @@ const cardsContainer = document.querySelector('.src-container')
 const getUserSchedulings = async () => {
     try {
         const cpf = localStorage.getItem('cpf')
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/schedulings/${cpf}`)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/overallSchedulingsController.php?cpf=${cpf}`)
         
         if (!response.ok) {
             const errorObj = await response.json()
