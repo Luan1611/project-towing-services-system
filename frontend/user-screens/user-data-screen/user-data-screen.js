@@ -8,8 +8,9 @@ const getUserRegistrationData = async () => {
     try {
         //De onde virá o CPF?
         const cpf = localStorage.getItem('cpf')
+        console.log('oioasoiasdiooasdiioasd')
 
-        const response = await fetch(`http://localhost/project-towing-services-system-backend/client/client-registration-data/${cpf}`)
+        const response = await fetch(`http://localhost/project-towing-services-system-backend/overallSchedulingController.php?cpf=${cpf}`)
         
         if (!response.ok) {
             const errorObj = await response.json()
