@@ -5,12 +5,9 @@ const schedulingsContainer = document.querySelector('.src-container')
 
 const getUserSchedulings = async () => {
 
-    const cpf = localStorage.getItem('cpf')
-
     try {
-        const cpf = localStorage.getItem('cpf')
 
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/overallSchedulingsController.php?cpf=${cpf}`)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/overallSchedulingsController.php`)
         
         if (!response.ok) {
             const errorObj = await response.json()
