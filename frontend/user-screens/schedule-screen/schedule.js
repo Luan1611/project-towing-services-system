@@ -7,7 +7,7 @@ const getServices = async () => {
 
     try {
 
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/servicesController.php`)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/serviceController.php`)
         
         if (!response.ok) {
             const errorObj = await response.json()
