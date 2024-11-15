@@ -2,7 +2,6 @@
 
 const schedulingsContainer = document.querySelector('.src-container')
 
-
 const getServices = async () => {
 
     try {
@@ -25,6 +24,8 @@ const getServices = async () => {
         console.log(err.message)
     }
 }
+
+getServices()
 
 
 // for (let obj of availableServices) {
