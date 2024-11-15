@@ -8,12 +8,6 @@ const getUserRegistrationData = async () => {
     try {
         //De onde virá o CPF?
         const cpf = localStorage.getItem('cpf')
-        console.log('oioasoiasdiooasdiioasd')
-
-        console.log('hello tentava de console.log para debugar')
-
-        console.log('o que esta acontecendo com o xamp')
-
 
         const response = await fetch(`http://localhost/project-towing-services-system/backend/clientRegistrationDataController.php?cpf=${cpf}`)
         
