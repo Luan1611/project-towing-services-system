@@ -4,7 +4,7 @@ const getServices = async () => {
 
     try {
 
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/serviceController.php`)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/overallSchedulingsController.php`)
         
         if (!response.ok) {
             const errorObj = await response.json()
@@ -17,6 +17,12 @@ const getServices = async () => {
         console.log(servicesData)
 
         servicesData.forEach(item => console.log(item))
+
+        // servicesData.forEach(item => {
+        //     let innerDiv = document.createElement('div')
+        //     innerDiv.innerHTML = `<p>${}</p><p>${}</p><p>${}</p><p>${}</p><p>${}</p>`
+            
+        // })
 
     } catch(err) {
         console.log(err.message)
