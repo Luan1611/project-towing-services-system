@@ -33,7 +33,7 @@ function validateName($name) {
 // Verifica se o telefone tem ao menos 10 dígitos, e se é composto
 // apenas por números
 function validatePhoneNumber($phoneNumber) {
-    if (!preg_match('/^[0-9]{10,}$/', $phoneNumber)) {
+    if (!preg_match('/^[0-9]{10, 11}$/', $phoneNumber)) {
         throw new Exception("Telefone Inválido", 406);
     }
 }

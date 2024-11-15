@@ -95,7 +95,7 @@ const fetchPutRequest = async e => {
         phoneParagraph.textContent = telefone
 
     } catch(err) {
-        console.log(err.message)
+        alert(err.message)
     }
 }
 
