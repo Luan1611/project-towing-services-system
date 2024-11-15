@@ -77,6 +77,7 @@ class Service {
             output(500, ["msg" => $e->getMessage()]);
         }
     }
+     
 
     /*
     Retorna as informações dos serviços ofertados pelo guincheiro (prestador de serviço)
@@ -90,7 +91,7 @@ class Service {
                     codigo,
                     tipo, 
                     preco,
-                    active
+                    active   
                 FROM SERVICOS
                 WHERE codigo = :codigo");
 

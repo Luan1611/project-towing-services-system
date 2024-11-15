@@ -77,5 +77,35 @@ class Scheduling {
             output(500, ["msg" => $e->getMessage()]);
         }
     }
+
+    /*
+    Retorna as informações dos dias e dos serviços que serão ofertados pelo prestador de serviços
+    */ 
+    public static function getServicesSchedule() {
+        try {
+            $conexao = Conexao::getConexao();
+
+            $sql = $conexao->prepare(
+                "SELECT
+                    s.id,
+                    s.codigo,
+                    s.tipo, 
+                    s.preco,
+                    s.active,
+                    pos.data_oferta_servico,
+                    pos.quantidade
+                    FROM SERVICOS s
+                    INNER JOIN PRESTADOR_OFERTA_SERVICO pos
+                    ON pos.id_servico = s.id");
+
+            $sql->execute();
+            
+            return $sql->fetchAll();
+
+        } catch (Exception $e) {
+            output(500, ["msg" => $e->getMessage()]);
+        }
+    }
+
     
 }

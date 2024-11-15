@@ -32,6 +32,21 @@ function validateSchedulingId($schedulingId) {
     }
 }
 
+if(method("GET")) {
+
+    try {  
+        $schedulingsList = Scheduling::getServicesSchedule();
+
+        if (empty($schedulingsList)) {
+            output(200, ["msg" => "Não há agendamentos para serem exibidos"]);
+        }
+        
+        output(200, $schedulingsList);
+    } catch (Exception $e) {
+        throw new Exception("Não foi possível recuperar os dados dos agendamentos dos serviços", 500);
+    }
+}
+
 if (method("POST")) {
     if (!$data) {
         $data = $_POST;
