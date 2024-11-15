@@ -3,11 +3,11 @@
 const schedulingsContainer = document.querySelector('.src-container')
 
 
-const getUserSchedulings = async () => {
+const getServices = async () => {
 
     try {
 
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/overallSchedulingsController.php`)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/servicesController.php`)
         
         if (!response.ok) {
             const errorObj = await response.json()
@@ -15,15 +15,11 @@ const getUserSchedulings = async () => {
             throw new Error(errorObj.msg)
         }
 
-        const userSchedulings = await response.json()
+        const servicesData = await response.json()
 
-        console.log(userSchedulings)
+        console.log(servicesData)
 
-        //TODO: preencher card com as informações pessoais
-        //questão: de onde virá o email
-
-        userSchedulings.forEach(item => console.log(item))
-
+        servicesData.forEach(item => console.log(item))
 
     } catch(err) {
         console.log(err.message)
