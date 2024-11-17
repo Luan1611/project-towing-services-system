@@ -40,10 +40,16 @@
                 </div>
                 <div class="card">
                     <form class="service" action="/submit">
-                        <label>Escolha o código do serviço:</label>
-                        <select id="services" name="services">
 
-                        </select>
+                        <label for="services">Escolha o código do serviço:</label>
+                        <select id="services" name="services"></select><br>
+
+                        <label for="date">Data para a oferta do serviço:</label>
+                        <input type="date" id="date" name="date" required><br>
+
+                        <label>Quantidade:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" max="10" required>
+
                         <button type="submit">Enviar</button>
                     </form>
                 </div>
