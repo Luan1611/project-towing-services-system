@@ -52,17 +52,14 @@ if (method("POST")) {
     }
 
     try {
-        validateParameters($data, ["cnpj","codigo", "data", "quantidade"], 3);
+        validateParameters($data, ["cnpj","codigo", "data", "quantidade"], 4);
         validateCode($data["codigo"]);
         validateDate($data["data"]);
 
-        $result = Contractor::createServiceDay($data["cnpj"], $data["codigo"], $data["data"], $data["quantidade"]);
+        Contractor::createServiceDay($data["cnpj"], $data["codigo"], $data["data"], $data["quantidade"]);
         
-        if(!$result) {
-            throw new Exception("O dia de serviço ja foi cadastrado", 500);
-        }
 
-        output(200, $result);
+        output(200, ["msg" => "dia de serviço cadastrado com sucesso"]);
     } catch (Exception $e) {
         output($e->getCode(), ["msg" => $e->getMessage()]);
     }

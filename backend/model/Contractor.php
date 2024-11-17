@@ -40,7 +40,7 @@ class Contractor {
                     data_oferta_servico
                     ) VALUES (
                     :cnpj,
-                    :codigo,
+                    (SELECT id FROM servicos where codigo = :codigo),
                     :qtdd,
                     :data_oferta
                     )");
@@ -51,12 +51,8 @@ class Contractor {
             $values['data_oferta'] = $date;
                     
             $sql->execute($values);
-
-            $stmt = $conexao->prepare("SELECT * FROM PRESTADOR_OFERTA_SERVICO WHERE cnpj_prestador = :cnpj AND id_servico = :codigo");
-
-            $stmt->execute(['cnpj' => $cnpj, 'codigo' => $code ]);
-
-            return $stmt->fetch();
+            
+            return;
         } catch (Exception $e) {
             output(500, ["msg" => $e->getMessage()]);
         }
