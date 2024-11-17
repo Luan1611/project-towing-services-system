@@ -14,9 +14,36 @@ const getServices = async () => {
 
         const servicesData = await response.json()
 
-        console.log(servicesData)
-
-        servicesData.forEach(item => console.log(item))
+        const resultado = Object.values(
+            servicesData.reduce((acc, item) => {
+              const { data_oferta_servico, tipo, preco, quantidade, codigo } = item;
+          
+              if (!acc[data_oferta_servico]) {
+                acc[data_oferta_servico] = {
+                  data: data_oferta_servico,
+                  servicos: {}
+                };
+              }
+          
+              if (!acc[data_oferta_servico].servicos[tipo]) {
+                acc[data_oferta_servico].servicos[tipo] = [];
+              }
+          
+              acc[data_oferta_servico].servicos[tipo].push({ preco, quantidade, codigo });
+          
+              return acc;
+            }, {})
+          );
+          
+          const finalResultado = resultado.map(({ data, servicos }) => ({
+            data,
+            servicos: Object.entries(servicos).map(([tipo, detalhes]) => ({
+              tipo,
+              detalhes
+            }))
+          }));
+          
+          console.log(JSON.stringify(finalResultado, null, 2));
 
         // servicesData.forEach(item => {
         //     let innerDiv = document.createElement('div')

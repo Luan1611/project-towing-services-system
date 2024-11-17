@@ -130,6 +130,7 @@ const showServicesInfo = data => {
     
     data.forEach(obj => {
         const cardDiv = document.createElement('div')
+        cardDiv.classList.add('card')
         const date = document.createElement ('h3')
         date.textContent = obj.data
         cardDiv.appendChild(date)
@@ -142,22 +143,16 @@ const showServicesInfo = data => {
             innerObj.clientes.forEach(cliente => {
                 const pNome = document.createElement ('p')
                 const pQuantidade = document.createElement ('p')
+                const br = document.createElement ('br')
                 pNome.textContent = cliente.nome
-                pQuantidade.textContent = cliente.quantidade + '<br>'
+                pQuantidade.textContent = cliente.quantidade 
                 cardDiv.appendChild(pNome)
                 cardDiv.appendChild(pQuantidade)
+                cardDiv.appendChild(br)
             })
         })
         cardsDiv.appendChild(cardDiv)
     })
-
-
-    const card = document.createElement('div')
-    card.classList.add('service-card')
-    const h4 = document.createElement('h4')
-    h4.textContent = servicesData.data
-
-
 }
 
 serviceForm.addEventListener('submit', postNewService)
