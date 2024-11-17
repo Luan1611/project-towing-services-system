@@ -21,6 +21,12 @@ function validateCPFs($cpfsArray) {
     }
 }
 
+function validateCode($code) {
+    if (!preg_match("/^[a-zA-Z0-9]{2}$/", $code)) {
+        throw new Exception("Código de serviço inválido", 406);
+    }
+}
+
 // Lista todos os agendamentos de serviços solicitados pelos clientes, por data
 if(method("GET")) {
     if (!$data) {
@@ -37,6 +43,28 @@ if(method("GET")) {
         output(200, $list);
     } catch (Exception $e) {
         throw new Exception("Não foi possível recuperar os dados dos agendamentos", 500);
+    }
+}
+
+if (method("POST")) {
+    if (!$data) {
+        $data = $_POST;
+    }
+
+    try {
+        validateParameters($data, ["cnpj","codigo", "data", "quantidade"], 3);
+        validateCode($data["codigo"]);
+        validateDate($data["data"]);
+
+        $result = Contractor::createServiceDay($data["cnpj"], $data["codigo"], $data["data"], $data["quantidade"]);
+        
+        if(!$result) {
+            throw new Exception("O dia de serviço ja foi cadastrado", 500);
+        }
+
+        output(200, $result);
+    } catch (Exception $e) {
+        output($e->getCode(), ["msg" => $e->getMessage()]);
     }
 }
 

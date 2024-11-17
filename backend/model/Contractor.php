@@ -28,6 +28,40 @@ class Contractor {
         }
     }
 
+    public static function createServiceDay($cnpj, $code, $date, $quantity) {
+        try {
+            $conexao = Conexao::getConexao();
+
+            $sql = $conexao->prepare(
+                "INSERT INTO PRESTADOR_OFERTA_SERVICO(
+                    cnpj_prestador,
+                    id_servico,
+                    quantidade,
+                    data_oferta_servico
+                    ) VALUES (
+                    :cnpj,
+                    :codigo,
+                    :qtdd,
+                    :data_oferta
+                    )");
+
+            $values['cnpj'] = $cnpj;
+            $values['codigo'] = $code;
+            $values['qtdd'] = $quantity;
+            $values['data_oferta'] = $date;
+                    
+            $sql->execute($values);
+
+            $stmt = $conexao->prepare("SELECT * FROM PRESTADOR_OFERTA_SERVICO WHERE cnpj_prestador = :cnpj AND id_servico = :codigo");
+
+            $stmt->execute(['cnpj' => $cnpj, 'codigo' => $code ]);
+
+            return $stmt->fetch();
+        } catch (Exception $e) {
+            output(500, ["msg" => $e->getMessage()]);
+        }
+    }
+
     /*
     Deleta todas as solicitações de serviços de clientes em determinada data
     */

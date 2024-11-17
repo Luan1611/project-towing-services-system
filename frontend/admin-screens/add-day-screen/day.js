@@ -13,10 +13,14 @@ const getServices = async () => {
 
         const servicesData = await response.json()
 
+        console.log(servicesData)
+
         servicesData.forEach(({codigo}) => {
             const optionTemplate = `<option>${codigo}</option>`
-            selectField.appendChild(optionTemplate)
+            selectField.innerHTML += optionTemplate
         });
+
+        
 
     } catch(err) {
         console.log(err.message)
