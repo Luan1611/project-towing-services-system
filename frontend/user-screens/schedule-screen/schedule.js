@@ -1,7 +1,6 @@
 const schedulingsContainer = document.querySelector('.src-container')
 
 const getServices = async () => {
-    console.log('ohniashiohioasciaiojc')
     try {
 
         const response = await fetch(`http://localhost/project-towing-services-system/backend/aqueleQueNaoPodeSerNomeado.php`)
