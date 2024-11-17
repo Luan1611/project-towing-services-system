@@ -56,9 +56,7 @@ const postNewService = async e => {
             throw new Error(errorObj.msg)
         }
 
-        const newUserData = await response.json()
-
-        console.log(newUserData)
+        alert((await response.json()).msg)
 
         // alert(newUserData['msg'])
 
