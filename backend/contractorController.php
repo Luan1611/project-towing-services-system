@@ -28,7 +28,7 @@ function validateCode($code) {
 }
 
 // Lista todos os agendamentos de serviços solicitados pelos clientes, por data
-if(method("GET")) {
+if(method(" ")) {
     if (!$data) {
         $data = $_GET;
     }

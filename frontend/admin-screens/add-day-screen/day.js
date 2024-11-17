@@ -30,7 +30,7 @@ const getServices = async () => {
 
 const getSchedulingsData = async () => {
     try {
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/overallSchedulingController.php`)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/overallSchedulingsController.php`)
         
         if (!response.ok) {
             const errorObj = await response.json()
@@ -40,7 +40,45 @@ const getSchedulingsData = async () => {
 
         const schedulingsData = await response.json()
 
-        console.log(schedulingsData)
+        const resultado = Object.values(
+            schedulingsData.reduce((acc, item) => {
+              const { data_realizacao_servico, tipo, nome } = item;
+          
+              // Se a data não existir no acumulador, cria
+              if (!acc[data_realizacao_servico]) {
+                acc[data_realizacao_servico] = { 
+                  data: data_realizacao_servico, 
+                  tipos: {} 
+                };
+              }
+          
+              // Se o tipo não existir dentro da data, cria
+              if (!acc[data_realizacao_servico].tipos[tipo]) {
+                acc[data_realizacao_servico].tipos[tipo] = {};
+              }
+          
+              // Se o cliente não existir dentro do tipo, cria e inicializa contador
+              if (!acc[data_realizacao_servico].tipos[tipo][nome]) {
+                acc[data_realizacao_servico].tipos[tipo][nome] = 0;
+              }
+          
+              // Incrementa a contagem para o cliente
+              acc[data_realizacao_servico].tipos[tipo][nome]++;
+          
+              return acc;
+            }, {})
+          );
+          
+          // Formatando o resultado final
+          const finalResultado = resultado.map(({ data, tipos }) => ({
+            data,
+            tipos: Object.entries(tipos).map(([tipo, clientes]) => ({
+              tipo,
+              clientes: Object.entries(clientes).map(([nome, quantidade]) => ({ nome, quantidade }))
+            }))
+          }));
+          
+          console.log(JSON.stringify(finalResultado, null, 2));
 
     } catch(err) {
         console.log(err.message)
