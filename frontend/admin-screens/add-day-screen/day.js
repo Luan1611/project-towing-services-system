@@ -31,28 +31,34 @@ const postNewService = async e => {
     try {
         e.preventDefault()
 
-        // const nome = e.target.nome.value
-        // const telefone = e.target.tel.value
+        const cnpj = localStorage.getItem('cnpj')
+        const codigo = e.target.codigo.value
+        const data = e.target.data.value
+        const quantidade = e.target.quantidade.value
     
+        console.log(data)
+
         let options = {
             method: "POST",
             body: JSON.stringify({
-                // nome,
-                // telefone
+                cnpj,
+                codigo,
+                data,
+                quantidade
             })
         }
 
-        // const cpf = localStorage.getItem('cpf')
-
-        const response = await fetch(`http://localhost/project-towing-services-system/backend/clientRegistrationDataController.php?cpf=${cpf}`, options)
+        const response = await fetch(`http://localhost/project-towing-services-system/backend/contractorController.php`, options)
         
-        // if (!response.ok) {
-        //     const errorObj = await response.json()
-        //     console.log(errorObj)
-        //     throw new Error(errorObj.msg)
-        // }
+        if (!response.ok) {
+            const errorObj = await response.json()
+            console.log(errorObj)
+            throw new Error(errorObj.msg)
+        }
 
-        // const newUserData = await response.json()
+        const newUserData = await response.json()
+
+        console.log(newUserData)
 
         // alert(newUserData['msg'])
 
