@@ -57,17 +57,15 @@ const getServices = async () => {
                 cardDiv.appendChild(h5)
     
                 innerObj.detalhes.forEach(detailsObj => {
-                    const pCodigo = document.createElement ('p')
-                    const pQuantidade = document.createElement ('p')
-                    const pPreco = document.createElement ('p')
-                    const br = document.createElement ('br')
+                    const pCodigo = document.createElement ('h6')
+                    const pQuantidade = document.createElement ('h6')
+                    const pPreco = document.createElement ('h6')
                     pCodigo.textContent = detailsObj.codigo
                     pQuantidade.textContent = detailsObj.quantidade
                     pPreco.textContent = detailsObj.preco
                     cardDiv.appendChild(pCodigo)
                     cardDiv.appendChild(pPreco)
                     cardDiv.appendChild(pQuantidade)
-                    cardDiv.appendChild(br)
                 })
             })
             schedulingsContainer.appendChild(cardDiv)
