@@ -94,10 +94,10 @@ const postNewService = async e => {
 const showServicesInfo = () => {
     servicesData.forEach(service => {
         const optionTemplate = `<div id="service-card">
-        <h4>${}</h4>
-        <p>${}</p>
-        <p>${}</p>
-        <p>${}</p>
+        <h4></h4>
+        <p></p>
+        <p></p>
+        <p></p>
         </div>`
     })
     const card = document.createElement('div')
