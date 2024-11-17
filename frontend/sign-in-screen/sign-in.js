@@ -28,13 +28,16 @@ form.addEventListener('submit', async event => {
         }
         const userData = await response.json()
 
-        localStorage.setItem('cpf', userData.cpf)
+        console.log(response)
+
+        userData.cpf? localStorage.setItem('cpf', userData.cpf):localStorage.setItem('cnpj', userData.cnpj)
+
 
         if (userData.accessCode == ADMINISTRATOR_ACCESS) {
-            window.location = '../admin-screens/main-screen/main-screen.html'
+            //indow.location = '../admin-screens/main-screen/main-screen.html'
         } else {
             if (userData.accessCode == COMMON_USER_ACCESS && userData.cpf) {
-                window.location = '../user-screens/user-data-screen/user-data-screen.html'
+                //window.location = '../user-screens/user-data-screen/user-data-screen.html'
             }else if (userData.accessCode == NO_ACCESS) {
                 alert('Seu usuário foi bloqueado, entre em contato com a administração')
             } else {
