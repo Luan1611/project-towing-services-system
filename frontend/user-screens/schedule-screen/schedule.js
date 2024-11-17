@@ -52,7 +52,7 @@ const getServices = async () => {
             cardDiv.appendChild(date)
     
             obj.servicos.forEach(innerObj => {
-                const h5 = document.createElement ('h5')
+                const h3 = document.createElement ('h5')
                 h5.textContent = innerObj.tipo
                 cardDiv.appendChild(h5)
     
