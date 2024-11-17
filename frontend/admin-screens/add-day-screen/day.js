@@ -42,43 +42,40 @@ const getSchedulingsData = async () => {
 
         const resultado = Object.values(
             schedulingsData.reduce((acc, item) => {
-              const { data_realizacao_servico, tipo, nome } = item;
-          
-              // Se a data não existir no acumulador, cria
-              if (!acc[data_realizacao_servico]) {
-                acc[data_realizacao_servico] = { 
-                  data: data_realizacao_servico, 
-                  tipos: {} 
-                };
-              }
-          
-              // Se o tipo não existir dentro da data, cria
-              if (!acc[data_realizacao_servico].tipos[tipo]) {
-                acc[data_realizacao_servico].tipos[tipo] = {};
-              }
-          
-              // Se o cliente não existir dentro do tipo, cria e inicializa contador
-              if (!acc[data_realizacao_servico].tipos[tipo][nome]) {
-                acc[data_realizacao_servico].tipos[tipo][nome] = 0;
-              }
-          
-              // Incrementa a contagem para o cliente
-              acc[data_realizacao_servico].tipos[tipo][nome]++;
-          
-              return acc;
+                const { data_realizacao_servico, tipo, nome } = item;
+
+                if (!acc[data_realizacao_servico]) {
+                    acc[data_realizacao_servico] = {
+                        data: data_realizacao_servico,
+                        tipos: {}
+                    };
+                }
+
+                if (!acc[data_realizacao_servico].tipos[tipo]) {
+                    acc[data_realizacao_servico].tipos[tipo] = {};
+                }
+
+                if (!acc[data_realizacao_servico].tipos[tipo][nome]) {
+                    acc[data_realizacao_servico].tipos[tipo][nome] = 0;
+                }
+
+                acc[data_realizacao_servico].tipos[tipo][nome]++;
+
+                return acc;
             }, {})
-          );
-          
-          // Formatando o resultado final
-          const finalResultado = resultado.map(({ data, tipos }) => ({
+        );
+
+        const finalResultado = resultado.map(({ data, tipos }) => ({
             data,
             tipos: Object.entries(tipos).map(([tipo, clientes]) => ({
-              tipo,
-              clientes: Object.entries(clientes).map(([nome, quantidade]) => ({ nome, quantidade }))
+                tipo,
+                clientes: Object.entries(clientes).map(([nome, quantidade]) => ({ nome, quantidade }))
             }))
-          }));
-          
-          console.log(JSON.stringify(finalResultado, null, 2));
+        }));
+
+        console.log(JSON.stringify(finalResultado, null, 2));
+
+        showServicesInfo(finalResultado)
 
     } catch(err) {
         console.log(err.message)
@@ -129,15 +126,32 @@ const postNewService = async e => {
     }
 }
 
-const showServicesInfo = () => {
-    servicesData.forEach(service => {
-        const optionTemplate = `<div id="service-card">
-        <h4></h4>
-        <p></p>
-        <p></p>
-        <p></p>
-        </div>`
+const showServicesInfo = data => {
+    
+    data.forEach(obj => {
+        const cardDiv = document.createElement('div')
+        const date = document.createElement ('h3')
+        date.textContent = obj.data
+        cardDiv.appendChild(date)
+
+        obj.tipos.forEach(innerObj => {
+            const h5 = document.createElement ('h5')
+            h5.textContent = innerObj.tipo
+            cardDiv.appendChild(h5)
+
+            innerObj.clientes.forEach(cliente => {
+                const pNome = document.createElement ('p')
+                const pQuantidade = document.createElement ('p')
+                pNome.textContent = cliente.nome
+                pQuantidade.textContent = cliente.quantidade + '<br>'
+                cardDiv.appendChild(pNome)
+                cardDiv.appendChild(pQuantidade)
+            })
+        })
+        cardsDiv.appendChild(cardDiv)
     })
+
+
     const card = document.createElement('div')
     card.classList.add('service-card')
     const h4 = document.createElement('h4')
