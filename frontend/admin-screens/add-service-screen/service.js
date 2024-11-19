@@ -29,14 +29,24 @@ const getServicesData = async () => {
 }
 
 
-const postService = async (codigo, tipo, preco) => {
+const postService = async (e) => {
+    e.preventDefault()
+
+    const codigo = e.target.codigo.value
+    const tipo = e.target.tipo.value
+    const preco = e.target.preco.value
+    
+
     try {
 
         let options = {
             method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
                 codigo,
                 tipo,
                 preco
+            }) 
         }
 
         const response = await fetch(`http://localhost/project-towing-services-system/backend/serviceController.php`, options)
