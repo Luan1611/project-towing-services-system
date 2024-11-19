@@ -41,7 +41,8 @@ const getServices = async () => {
             const date = document.createElement('h3')
             date.textContent = obj.data
             cardDiv.appendChild(date)
-        
+
+           
             // Cria o formulário
             const form = document.createElement('form')
             form.classList.add('service-form')
@@ -49,6 +50,9 @@ const getServices = async () => {
             obj.servicos.forEach(service => {
                 const checkboxContainer = document.createElement('div')
                 checkboxContainer.classList.add('checkbox-container')
+
+                const id = document.createElement('h5')
+                id.textContent = service.id  
 
                 const checkbox = document.createElement('input')
                 checkbox.type = 'checkbox'
@@ -66,6 +70,7 @@ const getServices = async () => {
 
                 checkboxContainer.appendChild(checkbox)
                 checkboxContainer.appendChild(label)
+                checkboxContainer.appendChild(id)
 
                 form.appendChild(checkboxContainer)
             })
@@ -95,14 +100,18 @@ const getServices = async () => {
                     console.log(`Data: ${obj.data}`)
                     console.log('Serviços selecionados:', selectedServices)
 
+                    const cpf = localStorage.getItem('cpf')
+                    const data_solicitacao_servico = now()
+                    const data_realizacao_servico = e.target.previousElementSibling
+
                     const response = await fetch('http://localhost/project-towing-services-system/backend/aqueleQueNaoPodeSerNomeado.php', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            data: obj.data,
-                            servicos: selectedServices
+                            cpf,
+
                         })
                     })
 
