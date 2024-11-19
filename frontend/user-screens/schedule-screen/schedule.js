@@ -77,7 +77,7 @@ const getServices = async () => {
             form.appendChild(submitButton)
 
             // Evento de submit do formulário
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async e => {
                 e.preventDefault()
 
                 const selectedServices = []
@@ -95,29 +95,33 @@ const getServices = async () => {
                     console.log(`Data: ${obj.data}`)
                     console.log('Serviços selecionados:', selectedServices)
 
-                    // Exemplo de envio para o backend
-                    // fetch('http://localhost/project-towing-services-system/backend/aqueleQueNaoPodeSerNomeado.php', {
-                    //     method: 'POST',
-                    //     headers: {
-                    //         'Content-Type': 'application/json'
-                    //     },
-                    //     body: JSON.stringify({
-                    //         data: obj.data,
-                    //         servicos: selectedServices
-                    //     })
-                    // })
-                    // .then(response => response.json())
-                    // .then(data => {
-                    //     // Lógica após o agendamento bem-sucedido
-                    // })
-                    // .catch(error => {
-                    //     console.error('Erro:', error)
-                    // })
+                    const response = await fetch('http://localhost/project-towing-services-system/backend/aqueleQueNaoPodeSerNomeado.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            data: obj.data,
+                            servicos: selectedServices
+                        })
+                    })
+
+                    if (!response.ok) {
+                        const errorObj = await response.json()
+                        console.log(errorObj)
+                        throw new Error(errorObj.msg)
+                    }
+            
+                    const schedulings = await response.json()
+
+                    console.log(schedulings)
 
                     alert(`Serviços agendados para ${obj.data}:\n${selectedServices.map(s => s.tipo).join(', ')}`)
+
                 } else {
                     alert('Por favor, selecione pelo menos um serviço.')
                 }
+
             })
 
             cardDiv.appendChild(form)
