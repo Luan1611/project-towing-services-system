@@ -1,5 +1,6 @@
 const divContainer = document.querySelector('.services-container')
 const btn = document.querySelector('#add-bt')
+const form = document.querySelector('#form')
 
 const getServicesData = async () => {
     try {
@@ -15,13 +16,13 @@ const getServicesData = async () => {
 
         console.log(servicesData)
 
-        servicesData.forEach(item => console.log(item))
+        servicesData.forEach(item => {
+            let innerDiv = document.createElement('div')
+            innerDiv.classList.add('services-info-container')
+            innerDiv.innerHTML = `<h3>Tipo: ${item.tipo}</h3><h5>Código: ${item.codigo}</h5><h5>Preço: ${item.preco}</h5>`
+            divContainer.appendChild(innerDiv)
+        })
 
-        // servicesData.forEach(item => {
-        //     let innerDiv = document.createElement('div')
-        //     innerDiv.innerHTML = `<p>${}</p><p>${}</p><p>${}</p><p>${}</p><p>${}</p>`
-            
-        // })
 
     } catch(err) {
         console.log(err.message)
@@ -29,13 +30,13 @@ const getServicesData = async () => {
 }
 
 
-const postService = async (e) => {
+const postService = async e => {
     e.preventDefault()
 
     const codigo = e.target.codigo.value
     const tipo = e.target.tipo.value
     const preco = e.target.preco.value
-    
+
 
     try {
 
@@ -59,21 +60,16 @@ const postService = async (e) => {
 
         const servicesData = await response.json()
 
-        console.log(servicesData)
-
-        servicesData.forEach(item => console.log(item))
-
-        // servicesData.forEach(item => {
-        //     let innerDiv = document.createElement('div')
-        //     innerDiv.innerHTML = `<p>${}</p><p>${}</p><p>${}</p><p>${}</p><p>${}</p>`
-            
-        // })
+        let innerDiv = document.createElement('div')
+        innerDiv.classList.add('services-info-container')
+        innerDiv.innerHTML = `<h3>Tipo: ${servicesData.tipo}</h3><h5>Código: ${servicesData.codigo}</h5><h5>Preço: ${servicesData.preco}</h5>`
+        divContainer.appendChild(innerDiv)
 
     } catch(err) {
         console.log(err.message)
     }
 }
 
-btn.addEventListener('click', postService)
+form.addEventListener('submit', postService)
 
 getServicesData()
